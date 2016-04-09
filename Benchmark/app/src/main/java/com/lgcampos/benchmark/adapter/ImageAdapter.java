@@ -12,23 +12,22 @@ import com.bumptech.glide.Glide;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.lgcampos.benchmark.R;
 import com.lgcampos.benchmark.activity.ImageActivity;
-import com.lgcampos.benchmark.domain.Image;
-import com.lgcampos.benchmark.domain.ImageLibrary;
+import com.lgcampos.benchmark.domain.model.Image;
+import com.lgcampos.benchmark.domain.model.ImageLibrary;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import static com.lgcampos.benchmark.domain.Image.getImages;
-
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
 
+    private static final String BASE_URL_IMAGE = "http://aviewfrommyseat.com/wallpaper/%s";
     private final List<Image> images;
     private final ImageActivity activity;
     private final ImageLibrary library;
 
-    public ImageAdapter(ImageActivity activity, ImageLibrary library) {
+    public ImageAdapter(ImageActivity activity, List<Image> images, ImageLibrary library) {
         this.activity = activity;
-        this.images = getImages();
+        this.images = images;
         this.library = library;
     }
 
@@ -42,14 +41,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     public void onBindViewHolder(ImageAdapter.ViewHolder holder, int position) {
         Image imageSelected = images.get(position);
 
-        holder.text.setText(imageSelected.getLabel());
+        holder.text.setText(imageSelected.getVenue());
 
         if (library == ImageLibrary.GLIDE) {
-            Glide.with(activity).load(imageSelected.getUrlImage()).into(holder.image);
+            Glide.with(activity).load(String.format(BASE_URL_IMAGE, imageSelected.getImage())).into(holder.image);
         } else if (library == ImageLibrary.PICASSO) {
-            Picasso.with(activity).load(imageSelected.getUrlImage()).into(holder.image);
+            Picasso.with(activity).load(String.format(BASE_URL_IMAGE, imageSelected.getImage())).into(holder.image);
         } else {
-            Uri imageUri = Uri.parse(imageSelected.getUrlImage());
+            Uri imageUri = Uri.parse(String.format(BASE_URL_IMAGE, imageSelected.getImage()));
             holder.frescoImage.setImageURI(imageUri);
         }
     }

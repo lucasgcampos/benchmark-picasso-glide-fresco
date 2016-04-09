@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.lgcampos.benchmark.R;
-import com.lgcampos.benchmark.domain.ImageLibrary;
+import com.lgcampos.benchmark.domain.model.ImageLibrary;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
