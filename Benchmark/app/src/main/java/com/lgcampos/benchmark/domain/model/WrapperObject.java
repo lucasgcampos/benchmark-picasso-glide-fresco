@@ -6,7 +6,7 @@ import java.util.List;
  * @author Lucas Campos
  * @since 1.0.0
  */
-public class WraperObject {
+public class WrapperObject {
 
     private List<Image> avfms;
 

@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.lgcampos.benchmark.R;
-import com.lgcampos.benchmark.domain.model.ImageLibrary;
+import com.lgcampos.benchmark.domain.manager.GlideImageManager;
+import com.lgcampos.benchmark.domain.manager.PicassoImageManager;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,21 +29,14 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.picasso)
     void onClickPicasso() {
         Intent intent = new Intent(this, ImageActivity.class);
-        intent.putExtra(IMAGE_LIBRARY, ImageLibrary.PICASSO);
+        intent.putExtra(IMAGE_LIBRARY, new PicassoImageManager());
         startActivity(intent);
     }
 
     @OnClick(R.id.glide)
     void onClickGlide() {
         Intent intent = new Intent(this, ImageActivity.class);
-        intent.putExtra(IMAGE_LIBRARY, ImageLibrary.GLIDE);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.fresco)
-    void onClickFresco() {
-        Intent intent = new Intent(this, ImageActivity.class);
-        intent.putExtra(IMAGE_LIBRARY, ImageLibrary.FRESCO);
+        intent.putExtra(IMAGE_LIBRARY, new GlideImageManager());
         startActivity(intent);
     }
 

@@ -1,7 +1,8 @@
 package com.lgcampos.benchmark.domain.model;
 
 /**
- * Created by lucas on 4/1/16.
+ * @author Lucas Campos
+ * @since 1.0.0
  */
 public class Image {
 

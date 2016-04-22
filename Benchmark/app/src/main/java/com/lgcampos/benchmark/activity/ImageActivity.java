@@ -6,13 +6,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.lgcampos.benchmark.adapter.ImageAdapter;
 import com.lgcampos.benchmark.R;
-import com.lgcampos.benchmark.domain.model.ImageLibrary;
+import com.lgcampos.benchmark.adapter.ImageAdapter;
+import com.lgcampos.benchmark.domain.manager.ImageManager;
+import com.lgcampos.benchmark.domain.model.WrapperObject;
 import com.lgcampos.benchmark.domain.service.ImageService;
 import com.lgcampos.benchmark.domain.service.RetrofitConfig;
-import com.lgcampos.benchmark.domain.model.WraperObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,20 +32,19 @@ public class ImageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
-        Fresco.initialize(this);
 
         ImageService service = new RetrofitConfig().createService(ImageService.class);
-        Call<WraperObject> images = service.loadImages();
-        images.enqueue(new Callback<WraperObject>() {
+        Call<WrapperObject> images = service.loadImages();
+        images.enqueue(new Callback<WrapperObject>() {
             @Override
-            public void onResponse(Call<WraperObject> call, Response<WraperObject> response) {
-                ImageLibrary library = (ImageLibrary) getIntent().getSerializableExtra("lib");
+            public void onResponse(Call<WrapperObject> call, Response<WrapperObject> response) {
+                ImageManager imageManager = (ImageManager) getIntent().getSerializableExtra("lib");
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                recyclerView.setAdapter(new ImageAdapter(ImageActivity.this, response.body().getAvfms(), library));
+                recyclerView.setAdapter(new ImageAdapter(ImageActivity.this, response.body().getAvfms(), imageManager));
             }
 
             @Override
-            public void onFailure(Call<WraperObject> call, Throwable t) {
+            public void onFailure(Call<WrapperObject> call, Throwable t) {
 
             }
         });
