@@ -40,4 +40,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.observer)
+    void onClickObserver() {
+        Intent intent = new Intent(this, ObserverActivity.class);
+        startActivity(intent);
+    }
+
 }

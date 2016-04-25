@@ -23,7 +23,11 @@
         <activity
             android:name=".activity.ImageActivity"
             android:label="@string/title_activity_image"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ObserverActivity"
+            android:label="@string/title_activity_observer"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

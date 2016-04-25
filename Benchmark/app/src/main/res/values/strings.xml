@@ -5,4 +5,7 @@
     <string name="glide">Glide</string>
     <string name="fresco">Fresco</string>
     <string name="title_activity_image">ImageActivity</string>
+    <string name="observer">Observer</string>
+    <string name="title_activity_observer">ObserverActivity</string>
+    <string name="adicionar_1">Adicionar +1</string>
 </resources>
