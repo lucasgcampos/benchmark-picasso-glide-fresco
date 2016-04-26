@@ -3,6 +3,7 @@ package com.lgcampos.benchmark.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ public class ObserverActivity extends AppCompatActivity {
 
     @Bind(R.id.view_pager)
     ViewPager viewPager;
+
+    private int totalCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +42,18 @@ public class ObserverActivity extends AppCompatActivity {
         ButterKnife.unbind(this);
     }
 
-    @OnClick(R.id.add_button)
+    @OnClick(R.id.button_add)
     void onClickAddButton() {
         //TODO: do something
-        Toast.makeText(ObserverActivity.this, "Clicou", Toast.LENGTH_SHORT).show();
+        totalCount++;
+        Toast.makeText(ObserverActivity.this, "totalCount is now " + totalCount, Toast.LENGTH_SHORT).show();
     }
 
-    private class ObserverViewPageAdapter extends FragmentStatePagerAdapter {
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    private class ObserverViewPageAdapter extends FragmentPagerAdapter {
 
         public ObserverViewPageAdapter(FragmentManager fm) {
             super(fm);
