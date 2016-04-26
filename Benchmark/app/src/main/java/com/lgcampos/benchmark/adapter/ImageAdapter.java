@@ -42,7 +42,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return images.size();
+        /**
+         * Always consider the nullPointerException protection on this method
+         */
+        return images != null ? images.size() : 0;
     }
 
 

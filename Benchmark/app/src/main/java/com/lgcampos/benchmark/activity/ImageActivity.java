@@ -24,6 +24,7 @@ public class ImageActivity extends AppCompatActivity {
     @Bind(R.id.recycler)
     RecyclerView recyclerView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,23 +32,37 @@ public class ImageActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        ImageManager imageManager = null;
+
+        /**
+         * Always avoid NullPointerException testing intent and
+         * his content
+         */
+
+        if (getIntent() != null) {
+            imageManager = (ImageManager) getIntent().getSerializableExtra("lib");
+        }
+
         ButterKnife.bind(this);
 
-        ImageService service = new RetrofitConfig().createService(ImageService.class);
-        Call<WrapperObject> images = service.loadImages();
-        images.enqueue(new Callback<WrapperObject>() {
-            @Override
-            public void onResponse(Call<WrapperObject> call, Response<WrapperObject> response) {
-                ImageManager imageManager = (ImageManager) getIntent().getSerializableExtra("lib");
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                recyclerView.setAdapter(new ImageAdapter(ImageActivity.this, response.body().getAvfms(), imageManager));
-            }
+        if (imageManager != null) {
+            ImageService service = new RetrofitConfig().createService(ImageService.class);
+            Call<WrapperObject> images = service.loadImages();
+            images.enqueue(new Callback<WrapperObject>() {
+                @Override
+                public void onResponse(Call<WrapperObject> call, Response<WrapperObject> response) {
+                    ImageManager imageManager = (ImageManager) getIntent().getSerializableExtra("lib");
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    recyclerView.setAdapter(new ImageAdapter(ImageActivity.this, response.body().getAvfms(), imageManager));
+                }
 
-            @Override
-            public void onFailure(Call<WrapperObject> call, Throwable t) {
+                @Override
+                public void onFailure(Call<WrapperObject> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+
+        }
 
     }
 
