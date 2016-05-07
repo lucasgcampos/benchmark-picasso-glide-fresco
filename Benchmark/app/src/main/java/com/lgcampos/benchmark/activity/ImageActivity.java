@@ -24,7 +24,6 @@ public class ImageActivity extends AppCompatActivity {
     @Bind(R.id.recycler)
     RecyclerView recyclerView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,7 @@ public class ImageActivity extends AppCompatActivity {
          */
 
         if (getIntent() != null) {
-            imageManager = (ImageManager) getIntent().getSerializableExtra("lib");
+            imageManager = (ImageManager) getIntent().getSerializableExtra(MainActivity.IMAGE_LIBRARY_KEY);
         }
 
         ButterKnife.bind(this);
@@ -51,7 +50,7 @@ public class ImageActivity extends AppCompatActivity {
             images.enqueue(new Callback<WrapperObject>() {
                 @Override
                 public void onResponse(Call<WrapperObject> call, Response<WrapperObject> response) {
-                    ImageManager imageManager = (ImageManager) getIntent().getSerializableExtra("lib");
+                    ImageManager imageManager = (ImageManager) getIntent().getSerializableExtra(MainActivity.IMAGE_LIBRARY_KEY);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     recyclerView.setAdapter(new ImageAdapter(ImageActivity.this, response.body().getAvfms(), imageManager));
                 }

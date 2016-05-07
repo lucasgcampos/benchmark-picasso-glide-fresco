@@ -14,7 +14,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String IMAGE_LIBRARY = "lib";
+    public static final String IMAGE_LIBRARY_KEY = "lib";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +29,14 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.picasso)
     void onClickPicasso() {
         Intent intent = new Intent(this, ImageActivity.class);
-        intent.putExtra(IMAGE_LIBRARY, new PicassoImageManager());
+        intent.putExtra(IMAGE_LIBRARY_KEY, new PicassoImageManager());
         startActivity(intent);
     }
 
     @OnClick(R.id.glide)
     void onClickGlide() {
         Intent intent = new Intent(this, ImageActivity.class);
-        intent.putExtra(IMAGE_LIBRARY, new GlideImageManager());
+        intent.putExtra(IMAGE_LIBRARY_KEY, new GlideImageManager());
         startActivity(intent);
     }
 
@@ -46,4 +46,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
 }

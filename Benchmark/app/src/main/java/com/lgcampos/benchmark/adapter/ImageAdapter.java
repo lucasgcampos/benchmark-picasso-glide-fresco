@@ -48,7 +48,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         return images != null ? images.size() : 0;
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView text;

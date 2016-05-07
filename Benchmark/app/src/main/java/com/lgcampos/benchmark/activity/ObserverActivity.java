@@ -1,13 +1,15 @@
 package com.lgcampos.benchmark.activity;
 
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
 import com.lgcampos.benchmark.R;
@@ -33,6 +35,7 @@ public class ObserverActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        viewPager.setOffscreenPageLimit(5);
         viewPager.setAdapter(new ObserverViewPageAdapter(getSupportFragmentManager()));
     }
 
@@ -44,9 +47,19 @@ public class ObserverActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_add)
     void onClickAddButton() {
-        //TODO: do something
         totalCount++;
-        Toast.makeText(ObserverActivity.this, "totalCount is now " + totalCount, Toast.LENGTH_SHORT).show();
+        int current = viewPager.getCurrentItem();
+        int offScreen = viewPager.getOffscreenPageLimit();
+
+        int begin = current - offScreen >= 0 ? current - offScreen : 0;
+        int end =  current + offScreen <= viewPager.getAdapter().getCount() ? current + offScreen : viewPager.getAdapter().getCount();
+
+        for (int i = begin; i <= end; i++) {
+            // TODO: Recupera fragment e usa o método de update
+
+        }
+
+        Toast.makeText(ObserverActivity.this, "totalCount is now " + viewPager.getChildCount(), Toast.LENGTH_SHORT).show();
     }
 
     public int getTotalCount() {
