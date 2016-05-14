@@ -1,6 +1,7 @@
 package com.lgcampos.benchmark.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,12 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.lgcampos.benchmark.Observable;
+import com.lgcampos.benchmark.Observer;
 import com.lgcampos.benchmark.R;
 import com.lgcampos.benchmark.activity.ObserverActivity;
 
-public class ObserverFragment extends Fragment {
+public class ObserverFragment extends Fragment implements Observer {
 
     private TextView tvCount;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        Observable observable = (Observable) getActivity();
+        if (observable != null) {
+            observable.registerObserver(this);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +48,6 @@ public class ObserverFragment extends Fragment {
         }
     }
 
-
     /**
      * This method will be called whenever the button +1 receive a click.
      *
@@ -51,5 +63,20 @@ public class ObserverFragment extends Fragment {
      */
     public void updateCountLabel(int count) {
         tvCount.setText(String.valueOf(count));
+    }
+
+    @Override
+    public void update(int count) {
+        updateCountLabel(count);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Observable observable = (Observable) getActivity();
+        if (observable != null) {
+            observable.removeObserver(this);
+        }
     }
 }
