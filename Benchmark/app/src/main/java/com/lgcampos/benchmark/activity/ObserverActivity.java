@@ -64,13 +64,13 @@ public class ObserverActivity extends AppCompatActivity implements Observable {
 
     @Override
     public void registerObserver(Observer observer) {
-        Log.i(TAG, "Registrando um fragment na lista de observers");
+        Log.i(TAG, "Registrando um fragment na lista de observers. Total: " + observers.size());
         this.observers.add(observer);
     }
 
     @Override
     public void removeObserver(Observer observer) {
-        Log.i(TAG, "Removendo um fragment da lista de observers");
+        Log.i(TAG, "Removendo um fragment da lista de observers. Total:" + observers.size());
         this.observers.remove(observer);
     }
 

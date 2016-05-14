@@ -1,7 +1,6 @@
 package com.lgcampos.benchmark.fragment;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,9 +19,8 @@ public class ObserverFragment extends Fragment implements Observer {
     private TextView tvCount;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         Observable observable = (Observable) getActivity();
         if (observable != null) {
             observable.registerObserver(this);
@@ -71,12 +69,12 @@ public class ObserverFragment extends Fragment implements Observer {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-
+    public void onDestroyView() {
+        super.onDestroyView();
         Observable observable = (Observable) getActivity();
         if (observable != null) {
             observable.removeObserver(this);
         }
     }
+
 }
